@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Per Chiara 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: pink;
+    overflow: hidden;
+}
+
+.hearts {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://i.imgur.com/7QpXKpZ.png");
+    background-repeat: repeat;
+    z-index: -1;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    color: #d6006d;
+    font-size: 38px;
+}
+
+p {
+    color: #b0005a;
+    font-size: 22px;
+}
+
+img {
+    width: 200px;
+    margin: 20px 0;
+    animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+button {
+    font-size: 22px;
+    padding: 10px 25px;
+    margin: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff69b4;
+    color: white;
+    position: relative;
+}
+
+button:hover {
+    background-color: #ff1493;
+}
+
+.moving {
+    position: absolute;
+}
+
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: rise 4s linear infinite;
+}
+
+@keyframes rise {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<!-- SCHERMATA 1 -->
+<div class="screen active" id="screen1">
+    <h1>Vuoi essere la mia Valentina, Chiara? 💘</h1>
+    <img src="https://i.imgur.com/JpQ5B4s.png">
+    <br>
+    <button onclick="nextScreen(2)">Sì 💖</button>
+    <button class="moving" id="noBtn">No 🙈</button>
+</div>
+
+<!-- SCHERMATA 2 -->
+<div class="screen" id="screen2">
+    <h1>Sei sicura? 😽</h1>
+    <img src="https://i.imgur.com/8Km9tLL.png">
+    <br>
+    <button onclick="nextScreen(3)">Al 100% 💕</button>
+    <button class="moving" id="forseBtn">Forse 🤔</button>
+</div>
+
+<!-- SCHERMATA 3 -->
+<div class="screen" id="screen3">
+    <h1>YIPPEEEEE 🎉💖</h1>
+    <p>Grazie per rendere ogni giorno più bello, Chiara 💕</p>
+    <img src="https://i.imgur.com/2Rm6b6G.png">
+</div>
+
+<script>
+function nextScreen(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + n).classList.add('active');
+
+    if (n === 3) {
+        setInterval(createHeart, 300);
+    }
+}
+
+function moveButton(btn, texts) {
+    btn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    if (texts) {
+        btn.textContent = texts[Math.floor(Math.random() * texts.length)];
+    }
+}
+
+const noBtn = document.getElementById("noBtn");
+const forseBtn = document.getElementById("forseBtn");
+
+noBtn.addEventListener("mouseover", () =>
+    moveButton(noBtn, ["Daiii 😽", "Lo so che vuoi", "Non mentire 💕"])
+);
+
+forseBtn.addEventListener("mouseover", () =>
+    moveButton(forseBtn, ["Scegliii 😼", "Ci sei quasi", "Su su 😻"])
+);
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+</script>
+
+</body>
+</html>
